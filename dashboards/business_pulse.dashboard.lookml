@@ -1,21 +1,16 @@
+---
 - dashboard: business_pulse
   title: Business Pulse
   layout: newspaper
   preferred_viewer: dashboards
   description: ''
-  #query_timezone: user_timezone
+  preferred_slug: CzeQ7eMyifc61YyxoYj0WQ
   embed_style:
     background_color: "#f7f7f7"
     show_title: true
     title_color: "#3a4245"
     show_filters_bar: true
     tile_text_color: "#3a4245"
-    #tile_separator_color: "#bdb7b7"
-    #tile_border_radius: 2
-    #show_tile_shadow: false
-    # tile_separator_color: "#bdb7b7"
-    # tile_border_radius: 2
-    # show_tile_shadow: false
     text_tile_text_color: "#ffffff"
   elements:
   - title: Number of First Purchasers
@@ -28,9 +23,14 @@
       users.created_date: 7 days
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: goal, label: Goal, expression: '10000', value_format: !!null '',
-        value_format_name: decimal_0, _kind_hint: dimension, _type_hint: number}]
-    #query_timezone: America/Los_Angeles
+    dynamic_fields:
+    - table_calculation: goal
+      label: Goal
+      expression: '10000'
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: dimension
+      _type_hint: number
     custom_color_enabled: false
     show_single_value_title: true
     show_comparison: true
@@ -70,13 +70,17 @@
     explore: order_items
     type: single_value
     fields: [order_items.average_sale_price]
-    filters: {}
     sorts: [orders.average_profit desc, order_items.average_sale_price desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: date, label: date, expression: now(), value_format: !!null '',
-        value_format_name: !!null '', _kind_hint: dimension, is_disabled: true}]
-    #query_timezone: America/Los_Angeles
+    dynamic_fields:
+    - table_calculation: date
+      label: date
+      expression: now()
+      value_format:
+      value_format_name:
+      _kind_hint: dimension
+      is_disabled: true
     custom_color_enabled: false
     show_single_value_title: true
     show_comparison: false
@@ -92,7 +96,6 @@
     text_color: black
     colors: ["#5245ed", "#a2dcf3", "#776fdf", "#1ea8df", "#49cec1", "#776fdf", "#49cec1",
       "#1ea8df", "#a2dcf3", "#776fdf", "#776fdf", "#635189"]
-    series_types: {}
     hidden_fields: []
     y_axes: []
     defaults_version: 1
@@ -161,7 +164,6 @@
     sorts: [products.category, order_items.created_date desc]
     limit: 500
     column_limit: 50
-    #query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: true
@@ -236,11 +238,9 @@
     type: looker_column
     fields: [events.event_day_of_week, events.sessions_count, events.unique_visitors,
       sessions.overall_conversion]
-    filters: {}
     sorts: [events.event_day_of_week]
     limit: 500
     column_limit: 50
-    #query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: false
@@ -283,7 +283,6 @@
             name: Conversion Rate}]}]
     colors: ["#1EA8DF", "#8ED3EF", "#B1A8C4", "#635189"]
     series_types:
-      events.count: line
       events.unique_visitors: line
       events.sessions_count: line
     series_colors: {}
@@ -323,10 +322,14 @@
     sorts: [order_items.months_since_signup, users.age_tier__sort_, users.traffic_source]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: pct_cohort_still_active, label: Pct Cohort
-          Still Active, expression: "${users.count} / max(${users.count})", value_format: !!null '',
-        value_format_name: percent_0, _kind_hint: measure, _type_hint: number}]
-    #query_timezone: America/Los_Angeles
+    dynamic_fields:
+    - table_calculation: pct_cohort_still_active
+      label: Pct Cohort Still Active
+      expression: "${users.count} / max(${users.count})"
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: false
@@ -393,7 +396,6 @@
     sorts: [order_items.created_year desc 0, order_items.created_month_name]
     limit: 500
     column_limit: 50
-    #query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: false
@@ -432,7 +434,6 @@
     y_axis_value_format: "$#,##0"
     x_axis_label: Month of Year
     colors: ["#635189", "#B1A8C4", "#1EA8DF", "#8ED3EF"]
-    series_types: {}
     series_colors: {}
     ordering: none
     show_null_labels: false
@@ -459,44 +460,45 @@
     name: Highest Spending Users
     model: thelook_public
     explore: order_items
-    type: looker_map
-    fields: [users.approx_location, users.gender, order_items.order_count, users.count,
-      order_items.total_sale_price, order_items.average_spend_per_user, users.country]
+    type: looker_google_map
+    fields: [users.approx_location, users.gender, order_items.total_sale_price, order_items.average_spend_per_user]
     pivots: [users.gender]
     filters: {}
     sorts: [users.gender 0, order_items.total_sale_price desc 0]
     limit: 500
     column_limit: 50
-    #query_timezone: America/Los_Angeles
+    hidden_fields: [orders.count, order_items.total_sale_price]
+    hidden_points_if_no: []
+    series_labels: {}
+    show_view_names: false
     map_plot_mode: points
     heatmap_gridlines: true
     heatmap_gridlines_empty: false
     heatmap_opacity: 0.5
     show_region_field: true
     draw_map_labels_above_data: true
-    map_tile_provider: light
+    map_tile_provider: traffic_day
     map_position: custom
-    map_scale_indicator: 'off'
-    map_pannable: true
-    map_zoomable: true
-    map_marker_type: circle
-    map_marker_icon_name: default
-    map_marker_radius_mode: proportional_value
-    map_marker_units: pixels
-    map_marker_proportional_scale_type: linear
-    map_marker_color_mode: value
-    show_view_names: false
-    show_legend: true
-    quantize_map_value_colors: false
-    reverse_map_value_colors: false
     map_latitude: 37.57941251343841
     map_longitude: -99.31640625000001
     map_zoom: 4
+    map_pannable: true
+    map_zoomable: true
+    map_marker_type: circle_and_icon
+    map_marker_icon_name: person
+    map_marker_radius_mode: proportional_value
+    map_marker_units: pixels
     map_marker_radius_max: 15
+    map_marker_proportional_scale_type: linear
+    map_marker_color_mode: value
     map_marker_color: ["#4285F4", "#EA4335", "#FBBC04", "#34A853"]
+    show_legend: true
     map_value_colors: [white, purple]
+    quantize_map_value_colors: false
+    reverse_map_value_colors: false
     map_value_scale_clamp_min: 0
     map_value_scale_clamp_max: 200
+    map_scale_indicator: 'off'
     stacking: ''
     show_value_labels: false
     label_density: 25
@@ -514,7 +516,6 @@
     ordering: none
     show_null_labels: false
     loading: false
-    hidden_fields: [orders.count, users.count, order_items.total_sale_price, order_items.order_count]
     map: usa
     map_projection: ''
     quantize_colors: false
@@ -525,10 +526,13 @@
     outer_border_width: 2
     empty_color: ''
     y_axes: []
-    defaults_version: 1
+    defaults_version: 0
     note_state: collapsed
     note_display: hover
     note_text: Bubble size corresponds to average user spend
+    hidden_pivots:
+      users.gender___null:
+        is_entire_pivot_hidden: false
     listen:
       State: users.state
       City: users.city
@@ -547,11 +551,9 @@
     explore: order_items
     type: looker_column
     fields: [users.traffic_source, order_items.average_sale_price, user_order_facts.average_lifetime_orders]
-    filters: {}
     sorts: [user_order_facts.lifetime_orders_tier__sort_, users.traffic_source]
     limit: 500
     column_limit: 50
-    #query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: false
@@ -624,12 +626,10 @@
     type: looker_donut_multiples
     fields: [users.gender, users.traffic_source, order_items.count]
     pivots: [users.traffic_source]
-    filters: {}
     sorts: [user_order_facts.lifetime_orders_tier__sort_, users.traffic_source, order_items.count
         desc 0]
     limit: 500
     column_limit: 15
-    #query_timezone: America/Los_Angeles
     show_value_labels: true
     font_size: 15
     hide_legend: false
@@ -681,12 +681,10 @@
     explore: order_items
     type: single_value
     fields: [order_items.30_day_repeat_purchase_rate]
-    filters: {}
     sorts: [repeat_purchase_facts.30_day_repeat_purchase_rate desc, order_items.30_day_repeat_purchase_rate
         desc]
     limit: 500
     column_limit: 50
-    #query_timezone: America/Los_Angeles
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -745,9 +743,12 @@
     sorts: [order_items.count desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: percent_change, label: Percent Change, expression: "${order_items.count}/offset(${order_items.count},1)\
-          \ - 1", value_format: !!null '', value_format_name: percent_0}]
-    #query_timezone: America/Los_Angeles
+    dynamic_fields:
+    - table_calculation: percent_change
+      label: Percent Change
+      expression: "${order_items.count}/offset(${order_items.count},1) - 1"
+      value_format:
+      value_format_name: percent_0
     show_comparison: true
     comparison_type: change
     comparison_reverse_colors: false
@@ -819,7 +820,6 @@
     limit: 10
     column_limit: 50
     row_total: right
-    #query_timezone: user_timezone
     show_view_names: false
     show_row_numbers: false
     transpose: false
@@ -827,9 +827,9 @@
     hide_totals: false
     hide_row_totals: false
     size_to_fit: true
-    table_theme: gray
+    table_theme: white
     limit_displayed_rows: false
-    enable_conditional_formatting: false
+    enable_conditional_formatting: true
     header_text_alignment: left
     header_font_size: '12'
     rows_font_size: '12'
@@ -838,6 +838,8 @@
     show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
+    truncate_header: false
+    minimum_column_width: 75
     series_labels:
       sessions.cart_to_checkout_conversion: Cart Conversion
     series_cell_visualizations:
@@ -846,10 +848,12 @@
         palette:
           palette_id: google-sequential-0
           collection_id: google
+    header_font_color: white
+    header_background_color: "#4285F4"
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#2196F3",
-        font_color: !!null '', color_application: {collection_id: f14810d2-98d7-42df-82d0-bc185a074e42,
-          palette_id: 493e0f89-1e28-4f9b-9f49-9cb1e77a0331}, bold: false, italic: false,
-        strikethrough: false, fields: !!null ''}]
+        font_color: !!null '', color_application: {collection_id: google, palette_id: google-sequential-0,
+          options: {steps: 5}}, bold: false, italic: false, strikethrough: false,
+        fields: [sessions.cart_to_checkout_conversion]}]
     conditional_formatting_ignored_fields: []
     stacking: ''
     show_value_labels: false
@@ -872,7 +876,6 @@
       "#1ea8df", "#a2dcf3", "#776fdf", "#776fdf", "#635189"]
     hidden_fields: []
     y_axes: []
-    series_types: {}
     defaults_version: 1
     listen:
       State: users.state
@@ -971,6 +974,9 @@
     default_value: ''
     allow_multiple_values: true
     required: false
+    ui_config:
+      type: advanced
+      display: popover
     model: thelook_public
     explore: order_items
     listens_to_filters: []
@@ -982,8 +988,8 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: button_group
-      display: inline
+      type: tag_list
+      display: popover
     model: thelook_public
     explore: order_items
     listens_to_filters: []
