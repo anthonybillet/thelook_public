@@ -1,6 +1,5 @@
-include: "/views/**/*.view" # include all the views
+include: "/models/thelook_public.model.lkml"
 
-# Place in `thelook` model
 explore: +order_items {
   query: high_value_geos {
     description: "States delivering high gross margins over the past 90 days"
@@ -8,9 +7,9 @@ explore: +order_items {
     measures: [total_gross_margin]
     sorts: [total_gross_margin: desc]
     filters: [
-      inventory_items.created_date: "90 days",
-      order_items.total_gross_margin: ">=10000",
-      users.country: "USA"
+      created_date: "90 days",
+      order_items.total_gross_margin: ">=5000",
+      users.country: "United States"
     ]
   }
 }
@@ -54,7 +53,6 @@ explore: +order_items {
     }
 }
 
-# Place in `thelook` model
 explore: +order_items {
     query: severely_delayed_orders {
       description: "Orders that are still in Processing after 3 days, filtered by Distribution Center"

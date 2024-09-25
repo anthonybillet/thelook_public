@@ -1,5 +1,5 @@
 view: users {
-  sql_table_name: looker-private-demo.ecomm.users ;;
+  sql_table_name: bigquery-public-data.thelook_ecommerce.users ;;
 
   ## Demographics ##
 
@@ -113,7 +113,7 @@ view: users {
 
   dimension: zip {
     type: zipcode
-    sql: ${TABLE}.zip ;;
+    sql: ${TABLE}.postal_code ;;
   }
 
   dimension: uk_postcode {
