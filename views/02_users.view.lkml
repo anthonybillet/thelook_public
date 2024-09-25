@@ -63,7 +63,7 @@ view: users {
 
     link: {
       label: "User Lookup Dashboard"
-      url: "/dashboards/ayalascustomerlookupdb?Email={{ value | encode_uri }}"
+      url: "/dashboards/thelook_public::customer_lookup?Email={{ value | encode_uri }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
     action: {

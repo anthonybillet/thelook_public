@@ -1,7 +1,10 @@
+---
 - dashboard: customer_lookup
   title: Customer Lookup
   layout: newspaper
   preferred_viewer: dashboards
+  description: ''
+  preferred_slug: rZ1tpWNIFhcTFsgPndzulE
   embed_style:
     background_color: "#f6f8fa"
     show_title: true
@@ -20,15 +23,15 @@
     filters:
       order_items.created_date: 99 years
       users.id: ''
-    sorts: [users.zip]
+    sorts: [users.zip desc]
     limit: 1
     column_limit: 50
-    #query_timezone: America/Los_Angeles
-    show_null_labels: false
     show_view_names: false
+    show_null_labels: false
     show_row_numbers: true
     hidden_fields: []
     y_axes: []
+    defaults_version: 1
     listen:
       Email: users.email
     row: 0
@@ -91,7 +94,6 @@
     show_row_numbers: true
     hidden_fields: []
     y_axes: []
-    series_types: {}
     listen:
       Email: users.email
     row: 9
@@ -108,7 +110,6 @@
       order_items.created_date: 99 years
     sorts: [order_items.count desc]
     limit: 500
-    #query_timezone: America/Los_Angeles
     value_labels: legend
     label_type: labPer
     colors: ["#64518A", "#8D7FB9", "#EA8A2F", "#F2B431", "#2DA5DE", "#57BEBE", "#7F7977",
@@ -135,9 +136,9 @@
     explore: order_items
     type: looker_geo_coordinates
     fields: [users.zip, users.count]
-    sorts: [users.created_month desc, users.zip]
+    sorts: [users.zip desc]
     limit: 1
-    #query_timezone: America/Los_Angeles
+    column_limit: 50
     map: usa
     map_projection: ''
     show_view_names: true
@@ -177,9 +178,12 @@
   - name: Email
     title: Email
     type: field_filter
-    default_value: ''
+    default_value: marybaker@example.org
     allow_multiple_values: true
     required: false
+    ui_config:
+      type: advanced
+      display: popover
     model: thelook_public
     explore: order_items
     listens_to_filters: []
