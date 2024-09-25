@@ -103,19 +103,19 @@ view: events {
     drill_fields: [visitors*]
   }
 
-  dimension: location {
-    type: location
-    view_label: "Visitors"
-    sql_latitude: ${TABLE}.latitude ;;
-    sql_longitude: ${TABLE}.longitude ;;
-  }
+  # dimension: location {
+  #   type: location
+  #   view_label: "Visitors"
+  #   sql_latitude: ${TABLE}.latitude ;;
+  #   sql_longitude: ${TABLE}.longitude ;;
+  # }
 
-  dimension: approx_location {
-    type: location
-    view_label: "Visitors"
-    sql_latitude: round(${TABLE}.latitude,1) ;;
-    sql_longitude: round(${TABLE}.longitude,1) ;;
-  }
+  # dimension: approx_location {
+  #   type: location
+  #   view_label: "Visitors"
+  #   sql_latitude: round(${TABLE}.latitude,1) ;;
+  #   sql_longitude: round(${TABLE}.longitude,1) ;;
+  # }
 
   dimension: has_user_id {
     type: yesno
@@ -129,11 +129,11 @@ view: events {
     sql: ${TABLE}.browser ;;
   }
 
-  dimension: os {
-    label: "Operating System"
-    view_label: "Visitors"
-    sql: ${TABLE}.os ;;
-  }
+  # dimension: os {
+  #   label: "Operating System"
+  #   view_label: "Visitors"
+  #   sql: ${TABLE}.os ;;
+  # }
 
   measure: count {
     type: count
@@ -181,6 +181,6 @@ view: events {
   }
 
   set: visitors {
-    fields: [ip, os, browser, user_id, count]
+    fields: [ip, browser, user_id, count]
   }
 }
