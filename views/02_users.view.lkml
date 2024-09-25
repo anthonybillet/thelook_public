@@ -42,12 +42,14 @@ view: users {
     sql: ${age} ;;
   }
 
-  dimension: gender {
+  dimension: gender_short {
     sql: ${TABLE}.gender ;;
   }
 
-  dimension: gender_short {
-    sql: LOWER(SUBSTR(${gender},1,1)) ;;
+  dimension: gender {
+    sql: CASE WHEN ${gender_short} = 'M' THEN 'Male'
+              WHEN ${gender_short} = 'F' THEN 'Female'
+         END ;;
   }
 
   dimension: user_image {
