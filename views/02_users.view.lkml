@@ -64,7 +64,7 @@ view: users {
     link: {
       label: "User Lookup Dashboard"
       url: "/dashboards/thelook_public::customer_lookup?Email={{ value | encode_uri }}"
-      icon_url: "http://www.looker.com/favicon.ico"
+      icon_url: "https://leadsbridge.com/wp-content/themes/leadsbridge/img/integration-lg-logos/logo1025.png"
     }
     action: {
       label: "Email Promotion to Customer"
