@@ -1,20 +1,16 @@
+---
 - dashboard: web_analytics_overview
   title: Web Analytics Overview
   layout: newspaper
   preferred_viewer: dashboards
-  #query_timezone: user_timezone
+  description: ''
+  preferred_slug: SobmG3C2WIvF4ZPp44qWhN
   embed_style:
     background_color: "#e8f1fa"
     show_title: true
     title_color: "#131414"
     show_filters_bar: true
     tile_text_color: gray
-    #tile_separator_color: rgba(0, 0, 0, 0.05)
-    #tile_border_radius: 3
-    #show_tile_shadow: true
-    # tile_separator_color: rgba(0, 0, 0, 0.05)
-    # tile_border_radius: 3
-    # show_tile_shadow: true
     text_tile_text_color: ''
   elements:
   - title: Total Visitors
@@ -28,8 +24,10 @@
     sorts: [events.event_week desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: change, label: Change, expression: "${events.unique_visitors}-offset(${events.unique_visitors},1)"}]
-    #query_timezone: America/Los_Angeles
+    dynamic_fields:
+    - table_calculation: change
+      label: Change
+      expression: "${events.unique_visitors}-offset(${events.unique_visitors},1)"
     font_size: medium
     value_format: ''
     text_color: black
@@ -75,10 +73,8 @@
     explore: order_items
     type: single_value
     fields: [order_items.total_sale_price]
-    filters: {}
     sorts: [orders.total_profit_k desc, order_items.total_sale_price desc]
     limit: 500
-    #query_timezone: America/Los_Angeles
     font_size: medium
     value_format: "$#,###"
     text_color: black
@@ -101,11 +97,9 @@
     explore: events
     type: looker_pie
     fields: [events.browser, events.count]
-    filters: {}
     sorts: [events.count desc]
     limit: 50
     column_limit: 50
-    #query_timezone: America/Los_Angeles
     value_labels: legend
     label_type: labPer
     colors: ["#635189", "#8D7FB9", "#EA8A2F", "#e9b404", "#49cec1", "#a2dcf3", "#1ea8df",
@@ -132,7 +126,6 @@
     explore: events
     type: looker_bar
     fields: [sessions.duration_seconds_tier, sessions.count]
-    filters: {}
     sorts: [sessions.duration_seconds_tier]
     limit: 500
     color_application:
@@ -250,7 +243,6 @@
       product_viewed.brand: "-NULL"
     sorts: [events.count desc]
     limit: 10
-    #query_timezone: America/Los_Angeles
     show_view_names: false
     show_row_numbers: true
     show_value_labels: true
@@ -294,11 +286,9 @@
     type: looker_column
     fields: [sessions.all_sessions, sessions.count_browse_or_later, sessions.count_product_or_later,
       sessions.count_cart_or_later, sessions.count_purchase]
-    filters: {}
     sorts: [sessions.all_sessions desc]
     limit: 500
     column_limit: 50
-    #query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: false
@@ -319,7 +309,6 @@
     legend_position: center
     colors: ["#5245ed", "#a2dcf3", "#776fdf", "#1ea8df", "#49cec1", "#776fdf", "#49cec1",
       "#1ea8df", "#a2dcf3", "#776fdf", "#776fdf", "#635189"]
-    series_types: {}
     point_style: circle
     show_value_labels: true
     label_density: 25
@@ -358,13 +347,36 @@
     name: Global Events
     model: thelook_public
     explore: events
-    type: looker_map
-    fields: [events.approx_location, events.count]
-    filters: {}
+    type: looker_google_map
+    fields: [events.count, users.approx_location]
     sorts: [events.count desc]
     limit: 1000
-    #query_timezone: America/Los_Angeles
+    column_limit: 50
+    hidden_fields: []
+    hidden_points_if_no: []
+    series_labels: {}
     show_view_names: true
+    map_plot_mode: points
+    heatmap_gridlines: true
+    heatmap_gridlines_empty: false
+    heatmap_opacity: 0.5
+    show_region_field: true
+    draw_map_labels_above_data: true
+    map_tile_provider: light
+    map_position: fit_data
+    map_pannable: true
+    map_zoomable: true
+    map_marker_type: circle_and_icon
+    map_marker_icon_name: default
+    map_marker_radius_mode: proportional_value
+    map_marker_units: pixels
+    map_marker_radius_max: 10
+    map_marker_proportional_scale_type: linear
+    map_marker_color_mode: value
+    map_marker_color: ["#1ea8df"]
+    show_legend: true
+    quantize_map_value_colors: false
+    reverse_map_value_colors: false
     stacking: ''
     show_value_labels: false
     label_density: 25
@@ -382,28 +394,14 @@
     ordering: none
     show_null_labels: false
     loading: false
-    map_plot_mode: points
-    heatmap_gridlines: true
-    map_tile_provider: positron
-    map_position: fit_data
     map_scale_indicator: 'off'
-    map_marker_type: circle
-    map_marker_icon_name: default
-    map_marker_radius_mode: proportional_value
-    map_marker_units: pixels
-    map_marker_proportional_scale_type: linear
-    map_marker_color_mode: fixed
-    show_legend: true
-    quantize_map_value_colors: false
     map: world
     map_projection: ''
     quantize_colors: false
     colors: [whitesmoke, "#64518A"]
     outer_border_color: grey
     inner_border_color: lightgrey
-    map_pannable: true
-    map_zoomable: true
-    map_marker_color: ["#1ea8df"]
+    defaults_version: 0
     listen:
       Browser: events.browser
       Traffic Source: users.traffic_source
@@ -421,7 +419,6 @@
     sorts: [sessions.session_start_date]
     limit: 500
     column_limit: 50
-    #query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -473,7 +470,6 @@
     sorts: [sessions.all_sessions desc, sessions.includes_purchase]
     limit: 500
     column_limit: 50
-    #query_timezone: America/Los_Angeles
     show_view_names: true
     colors: ["#5245ed", "#a2dcf3"]
     show_row_numbers: true
@@ -499,8 +495,6 @@
     interpolation: linear
     discontinuous_nulls: false
     show_null_points: true
-    series_types:
-      users.count: column
     inner_radius: 50
     series_labels:
       'No': No Purchase
@@ -524,6 +518,9 @@
     default_value: ''
     allow_multiple_values: true
     required: false
+    ui_config:
+      type: advanced
+      display: popover
     model: thelook_public
     explore: events
     listens_to_filters: []
@@ -531,9 +528,12 @@
   - name: Traffic Source
     title: Traffic Source
     type: field_filter
-    default_value:
+    default_value: ''
     allow_multiple_values: true
     required: false
+    ui_config:
+      type: advanced
+      display: popover
     model: thelook_public
     explore: events
     listens_to_filters: []
@@ -544,3 +544,6 @@
     default_value: 2 weeks
     allow_multiple_values: true
     required: false
+    ui_config:
+      type: advanced
+      display: popover
